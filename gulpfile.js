@@ -87,5 +87,5 @@ gulp.task('sass', style);
 gulp.task('js', script);
 gulp.task('fonts', fontsBuild);
 gulp.task('imagesBuild', imagesBuild);
-gulp.task('watch', server);
+gulp.task('watch', gulp.series(style, script, server));
 gulp.task('build', gulp.series(clean, style, script, build));
