@@ -99,4 +99,4 @@ gulp.task('js', script);
 gulp.task('fonts', fontsBuild);
 gulp.task('imagesBuild', imagesBuild);
 gulp.task('watch', gulp.series(html, style, script, server));
-gulp.task('build', gulp.series(clean, style, script, build));
+gulp.task('build', gulp.series(clean, html, style, script, build));
