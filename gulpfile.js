@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    pug = require('gulp-pug'),
     prefixer = require('gulp-autoprefixer'),
     // uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
@@ -10,6 +11,14 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create();
 
 //////////////////////////////////////////////
+
+function html() {
+    return gulp.src('src/*.pug')
+        .pipe(pug({
+            pretty: '    '
+        }))
+        .pipe(gulp.dest('src/'))
+}
 
 function style() {
     return gulp.src('src/sass/**/*.scss')
@@ -51,6 +60,7 @@ function server() {
     });
     gulp.watch('./src/sass/**/*.scss', style);
     gulp.watch('./src/js/script.js', script);
+    gulp.watch('./src/*.pug', html);
     gulp.watch("./src/*.html").on('change', browserSync.reload);
     gulp.watch('./src/img/**/*.{png,jpg,gif,svg}', browserSync.reload);
     gulp.watch('./src/fonts/*', browserSync.reload);
@@ -83,9 +93,10 @@ function build(done) {
     done();
 }
 
+gulp.task('pug', html);
 gulp.task('sass', style);
 gulp.task('js', script);
 gulp.task('fonts', fontsBuild);
 gulp.task('imagesBuild', imagesBuild);
-gulp.task('watch', gulp.series(style, script, server));
+gulp.task('watch', gulp.series(html, style, script, server));
 gulp.task('build', gulp.series(clean, style, script, build));

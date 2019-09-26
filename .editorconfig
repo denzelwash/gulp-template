@@ -8,7 +8,7 @@ indent_style = space
 indent_size = 4
 
 # Если нужно - отдельные настройки можно переписать для конретного типа файлов
-[*.jade]
+[*.pug]
 indent_style = space
 indent_size = 4
 
