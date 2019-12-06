@@ -1,3 +1,5 @@
+@import "blocks/vars";
+
 @font-face {
   font-family: "Open Sans";
   src: url("../fonts/OpenSans-Regular.ttf") format("truetype");
@@ -18,8 +20,6 @@
   font-weight: 700;
   font-style: normal;
 }
-
-@import "blocks/vars";
 
 body {
   position: relative;
@@ -48,4 +48,35 @@ a {
 .row {
   display: flex;
   flex-wrap: wrap;
+}
+
+.container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+@media #{$laptop} {
+  .container {
+    max-width: 990px;
+  }
+}
+
+@media #{$tablet-landscape} {
+  .container {
+    max-width: 770px;
+  }
+}
+
+@media #{$tablet-portrait} {
+  .container {
+    max-width: 570px;
+  }
+}
+
+@media #{$mobile} {
+  .container {
+    max-width: 100%;
+  }
 }

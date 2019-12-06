@@ -32,7 +32,7 @@ function style() {
 }
 
 function script() {
-  return gulp.src('src/js/libs/*.js')
+  return gulp.src(['src/js/libs/jquery.js', 'src/js/libs/*.js'])
     .pipe(concat('libs.js'))
     .pipe(gulp.dest('src/js/'))
     .pipe(browserSync.stream());
