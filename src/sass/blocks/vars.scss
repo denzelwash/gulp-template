@@ -1,0 +1,28 @@
+$c1: #ffffff;
+
+$media1200: 'only screen and (max-width: 1199px)';
+$media990: 'only screen and (max-width: 989px)';
+$media780: 'only screen and (max-width: 779px)';
+$media570: 'only screen and (max-width: 570px)';
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+
+    @media #{$media1200} {
+        max-width: 990px;
+    }
+
+    @media #{$media990} {
+        max-width: 780px;
+    }
+
+    @media #{$media780} {
+        max-width: 570px;
+    }
+
+    @media #{$media570} {
+        max-width: 100%;
+    }
+}

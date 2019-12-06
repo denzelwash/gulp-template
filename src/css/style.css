@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px; }
+  @media only screen and (max-width: 1199px) {
+    .container {
+      max-width: 990px; } }
+  @media only screen and (max-width: 989px) {
+    .container {
+      max-width: 780px; } }
+  @media only screen and (max-width: 779px) {
+    .container {
+      max-width: 570px; } }
+  @media only screen and (max-width: 570px) {
+    .container {
+      max-width: 100%; } }
+
+body {
+  position: relative;
+  font-family: "Open Sans", "Arial", sans-serif;
+  min-width: 320px;
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  background-color: #fff; }
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+img {
+  max-width: 100%;
+  height: auto; }
+
+a {
+  color: inherit;
+  text-decoration: none; }
+
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }

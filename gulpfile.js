@@ -1,19 +1,20 @@
 var gulp = require('gulp'),
   pug = require('gulp-pug'),
   prefixer = require('gulp-autoprefixer'),
-  // uglify = require('gulp-uglify'),
+  uglify = require('gulp-uglify'),
   concat = require('gulp-concat'),
-  // cssnano = require('gulp-cssnano'),
+  cssnano = require('gulp-cssnano'),
   sass = require('gulp-sass'),
   del = require('del'),
   imagemin = require('gulp-imagemin'),
   plumber = require('gulp-plumber'),
+  rename = require("gulp-rename"),
   browserSync = require('browser-sync').create();
 
 //////////////////////////////////////////////
 
 function html() {
-  return gulp.src('src/*.pug')
+  return gulp.src('src/pug/*.pug')
     .pipe(pug({
       pretty: '  '
     }))
@@ -21,7 +22,7 @@ function html() {
 }
 
 function style() {
-  return gulp.src('src/sass/**/*.scss')
+  return gulp.src('src/sass/*.scss')
     .pipe(plumber())
     .pipe(sass())
     .on('error', sass.logError)
@@ -60,7 +61,7 @@ function server() {
   });
   gulp.watch('./src/sass/**/*.scss', style);
   gulp.watch('./src/js/script.js', script);
-  gulp.watch('./src/*.pug', html);
+  gulp.watch('./src/pug/*.pug', html);
   gulp.watch("./src/*.html").on('change', browserSync.reload);
   gulp.watch('./src/img/**/*.{png,jpg,gif,svg}', browserSync.reload);
   gulp.watch('./src/fonts/*', browserSync.reload);
@@ -72,17 +73,23 @@ function clean() {
 
 function build(done) {
   gulp.src('src/css/*.css')
-    // .pipe(cssnano())
+    .pipe(gulp.dest('build/css/'))
+    .pipe(cssnano())
+    .pipe(rename(function (path) {
+      path.basename += '.min'
+    }))
     .pipe(gulp.dest('build/css/'));
-  gulp.src('src/fonts/**/*.*')
-    .pipe(gulp.dest('build/fonts/'));
   gulp.src('src/js/*.js')
-    // .pipe(uglify())
+    .pipe(gulp.dest('build/js/'))
+    .pipe(uglify())
+    .pipe(rename(function (path) {
+      path.basename += '.min'
+    }))
     .pipe(gulp.dest('build/js/'));
   gulp.src('src/*.html')
     .pipe(gulp.dest('build'));
-  gulp.src('src/sass/**/*.scss')
-    .pipe(gulp.dest('build/sass/'));
+  gulp.src('src/fonts/**/*.*')
+    .pipe(gulp.dest('build/fonts/'));
   gulp.src('src/img/**/*.{png,jpg,gif,svg}')
     .pipe(imagemin({
       optimizationLevel: 3,
