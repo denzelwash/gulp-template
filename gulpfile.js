@@ -2,9 +2,11 @@ const { src, dest, parallel, series, watch } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require('gulp-clean-css');
 const sourcemaps = require('gulp-sourcemaps');
+const autoprefixer = require('autoprefixer');
+const concat = require('gulp-concat');
 const rename = require('gulp-rename');
-const autoprefixer = require('autoprefixer')
 const postcss = require('gulp-postcss')
+const browserSync = require('browser-sync').create();
 
 	// pug = require('gulp-pug'),
 	// prefixer = require('gulp-autoprefixer'),
@@ -24,12 +26,25 @@ const postcss = require('gulp-postcss')
 function buildStyles() {
   return src('./assets/sass/*.scss')
 		.pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass()
+		.on('error', sass.logError))
 		.pipe(postcss([autoprefixer()]))
     .pipe(cleanCSS())
 		.pipe(rename({suffix: '.min'}))
 		.pipe(sourcemaps.write('/'))
-    .pipe(dest('./assets/css'));
+    .pipe(dest('./assets/css'))
+		.pipe(browserSync.stream());
 };
 
+function server() {
+	browserSync.init({
+		server: {
+				baseDir: "./"
+		}
+	});
+	watch('./assets/sass/**/*.scss', buildStyles);
+	watch("./*.html").on('change', browserSync.reload);
+}
+
 exports.scss = buildStyles;
+exports.watch = series(buildStyles, server);
