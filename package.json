@@ -37,6 +37,7 @@
     "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
+    "imagemin-webp": "^6.0.0",
     "postcss": "^8.3.6",
     "sass": "^1.37.5"
   }

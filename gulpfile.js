@@ -8,6 +8,7 @@ const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
 const imagemin = require('gulp-imagemin');
+const imageminWebp = require('imagemin-webp');
 const browserSync = require('browser-sync').create();
 
 function buildStyles() {
@@ -42,8 +43,20 @@ function buildImages() {
 					{removeViewBox: true},
 					{cleanupIDs: false}
 				]
-			})
+			}),
 		]))
+		.pipe(dest('assets/img/'));
+}
+
+function buildImagesWebp() {
+	return src('assets/img/**/*.{png,jpg}')
+		.pipe(
+			imagemin({
+				verbose: true,
+				plugins: imageminWebp({ quality: 80 })
+			})
+		)
+		.pipe(rename({extname: '.webp'}))
 		.pipe(dest('assets/img/'));
 }
 
@@ -60,7 +73,8 @@ function server() {
 	watch('assets/js/*.js').on('change', browserSync.reload);
 }
 
-exports.scss = buildStyles;
+exports.styles = buildStyles;
 exports.jsLibs = buildJsLibs;
 exports.images = buildImages;
+exports.imagesWebp = buildImagesWebp;
 exports.watch = series(buildStyles, buildJsLibs, server);
