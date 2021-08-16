@@ -1,1 +1,7 @@
-node_modules
+/node_modules/
+db.cfg.php
+/tpl/cache/
+/tpl/templates_c/
+/uploads/
+/vendor/
+.DS_Store
