@@ -11,6 +11,7 @@ const imagemin = require('gulp-imagemin');
 const imageminWebp = require('imagemin-webp');
 const pug = require('gulp-pug');
 const formatHtml = require('gulp-format-html');
+const svgSprite = require('gulp-svg-sprite');
 const browserSync = require('browser-sync').create();
 
 function buildPug() {
@@ -45,16 +46,10 @@ function buildJsLibs() {
 };
 
 function buildImages() {
-	return src('assets/img/**/*.{png,jpg,svg}')
+	return src('assets/img/**/*.{png,jpg}')
 		.pipe(imagemin([
 			imagemin.mozjpeg({quality: 80, progressive: true}),
 			imagemin.optipng({optimizationLevel: 2}),
-			imagemin.svgo({
-				plugins: [
-					{removeViewBox: true},
-					{cleanupIDs: false}
-				]
-			}),
 		]))
 		.pipe(dest('assets/img/'));
 }
@@ -71,6 +66,18 @@ function buildImagesWebp() {
 		.pipe(dest('assets/img/'));
 }
 
+function buildSvgSprite() {
+	return src(['assets/img/svg/**/*.svg', '!assets/img/svg/sprite.svg'])
+		.pipe(svgSprite({
+			mode: {
+				stack: {
+						sprite: '../sprite.svg'
+				}
+			},
+		}))
+		.pipe(dest('assets/img/svg/'));
+}
+
 function server() {
 	browserSync.init({
 		server: {
@@ -81,12 +88,16 @@ function server() {
 	watch('assets/sass/**/*.scss', buildStyles);
 	watch('assets/js/libs/**/*.js', buildJsLibs);
 	watch('*.html').on('change', browserSync.reload);
+	watch(['assets/img/svg/**/*.svg', '!assets/img/svg/sprite.svg']).on('all', buildSvgSprite);
 	watch('assets/img/**/*').on('all', browserSync.reload);
 	watch('assets/js/*.js').on('change', browserSync.reload);
 }
 
+exports.pug = buildPug;
 exports.styles = buildStyles;
 exports.jsLibs = buildJsLibs;
 exports.images = buildImages;
 exports.imagesWebp = buildImagesWebp;
-exports.watch = series(buildPug, buildStyles, buildJsLibs, server);
+exports.sprite = buildSvgSprite;
+
+exports.watch = series(buildPug, buildStyles, buildJsLibs, buildSvgSprite, server);
