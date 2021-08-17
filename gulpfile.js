@@ -9,18 +9,29 @@ const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
 const imagemin = require('gulp-imagemin');
 const imageminWebp = require('imagemin-webp');
+const pug = require('gulp-pug');
+const formatHtml = require('gulp-format-html');
 const browserSync = require('browser-sync').create();
 
+function buildPug() {
+	return src('assets/pug/*.pug')
+		.pipe(pug({
+			pretty: '\t'
+		}))
+		.pipe(formatHtml())
+		.pipe(dest('./'));
+}
+
 function buildStyles() {
-  return src('assets/sass/*.scss')
+	return src('assets/sass/*.scss')
 		.pipe(sourcemaps.init())
-    .pipe(sass()
+		.pipe(sass()
 		.on('error', sass.logError))
 		.pipe(postcss([autoprefixer()]))
-    .pipe(cleanCSS())
+		.pipe(cleanCSS())
 		.pipe(rename({suffix: '.min'}))
 		.pipe(sourcemaps.write('/'))
-    .pipe(dest('assets/css'))
+		.pipe(dest('assets/css'))
 		.pipe(browserSync.stream());
 };
 
@@ -66,6 +77,7 @@ function server() {
 				baseDir: './'
 		}
 	});
+	watch('assets/pug/**/*.pug', buildPug);
 	watch('assets/sass/**/*.scss', buildStyles);
 	watch('assets/js/libs/**/*.js', buildJsLibs);
 	watch('*.html').on('change', browserSync.reload);
@@ -77,4 +89,4 @@ exports.styles = buildStyles;
 exports.jsLibs = buildJsLibs;
 exports.images = buildImages;
 exports.imagesWebp = buildImagesWebp;
-exports.watch = series(buildStyles, buildJsLibs, server);
+exports.watch = series(buildPug, buildStyles, buildJsLibs, server);
