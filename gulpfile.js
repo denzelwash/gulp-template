@@ -37,10 +37,11 @@ function buildStyles() {
 };
 
 function buildJsLibs() {
-	return src(['assets/js/libs/jquery.js', 'assets/js/libs/*.js'], {allowEmpty: true})
-		.pipe(concat('libs.js'))
+	return src([
+		'./node_modules/bootstrap/dist/js/bootstrap.bundle.js',
+		])
+		.pipe(concat('libs.min.js'))
 		.pipe(uglify())
-		.pipe(rename({suffix: '.min'}))
 		.pipe(dest('assets/js/'))
 		.pipe(browserSync.stream());
 };
