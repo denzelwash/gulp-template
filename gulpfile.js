@@ -12,6 +12,7 @@ const imageminWebp = require('imagemin-webp');
 const pug = require('gulp-pug');
 const formatHtml = require('gulp-format-html');
 const svgSprite = require('gulp-svg-sprite');
+const purgecss = require('gulp-purgecss');
 const browserSync = require('browser-sync').create();
 
 function buildPug() {
@@ -28,6 +29,9 @@ function buildStyles() {
 		.pipe(sourcemaps.init())
 		.pipe(sass()
 		.on('error', sass.logError))
+		.pipe(purgecss({
+			content: ['./assets/pug/**/*.pug']
+		}))
 		.pipe(postcss([autoprefixer()]))
 		.pipe(cleanCSS())
 		.pipe(rename({suffix: '.min'}))
