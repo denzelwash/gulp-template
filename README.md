@@ -1,14 +1,7 @@
-:v:
-:metal:
 :star:
-:hankey:
-:hankey:
-:hankey:
-:hankey:
-:hankey:
 :star:
-:metal:
-:v:
+:star:
+
 # Gulp стартовый шаблон
 Сборщик для многостраничных сайтов. Нет как обычно отдельных папок src и dist, все в одном каталоге(так удобнее после прикрутки бэка и при поддержке). Все файлы в assets, в корень летят только html файлы.
 <br>
@@ -56,14 +49,3 @@
 + images
 + imagesWebp
 + sprite
-
-:hand:
-:hand:
-:hand:
-:hand:
-:hand:
-:hand:
-:hand:
-:hand:
-:hand:
-:hand:
