@@ -57,9 +57,6 @@
 + imagesWebp
 + sprite
 
-<br>
-<br>
-
 :hand:
 :hand:
 :hand:
