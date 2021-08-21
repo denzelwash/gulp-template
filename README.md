@@ -1,11 +1,11 @@
 :v:
 :metal:
 :star:
-::hankey::
-::hankey::
-::hankey::
-::hankey::
-::hankey::
+:hankey:
+:hankey:
+:hankey:
+:hankey:
+:hankey:
 :star:
 :metal:
 :v:
