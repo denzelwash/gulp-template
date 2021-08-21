@@ -1,11 +1,11 @@
 :v:
 :metal:
 :star:
-:hurtrealbad:
 ::hankey::
-:alien:
 ::hankey::
-:hurtrealbad:
+::hankey::
+::hankey::
+::hankey::
 :star:
 :metal:
 :v:
