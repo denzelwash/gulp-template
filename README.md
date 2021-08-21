@@ -56,3 +56,14 @@
 + images
 + imagesWebp
 + sprite
+
+:hand:
+:hand:
+:hand:
+:hand:
+:hand:
+:hand:
+:hand:
+:hand:
+:hand:
+:hand:
