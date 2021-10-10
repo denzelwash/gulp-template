@@ -30,7 +30,10 @@ function buildStyles() {
 		.pipe(sass()
 		.on('error', sass.logError))
 		.pipe(purgecss({
-			content: ['./assets/pug/**/*.pug']
+			content: ['*.html'],
+			safelist: {
+				greedy: [/modal-open$/, /modal-backdrop$/, /show$/, /hide$/, /desktop$/, /mobile$/, /active$/, /open$/, /fade$/, /path$/, /svg$/]
+			}
 		}))
 		.pipe(postcss([autoprefixer()]))
 		.pipe(cleanCSS())
